@@ -34,14 +34,29 @@ function addEmployeeCard(name, position) {
     employeeCard.appendChild(empPosition);
     employeeCard.appendChild(removeButton);
     dashboard.appendChild(employeeCard);
-
-}
-
-
-
+};
 
 // Test Cases for Task 2
 
 addEmployeeCard("Minnie Mouse", "Bow seller");
 addEmployeeCard("Dr. DooLittle", "Doctor");
 addEmployeeCard("Shrek", "Real Estate Agent");
+
+
+
+// Task 3 - Bulk Update on Employee Cards
+
+
+// Select all elements with the employee card class
+const employeeCardsNodeList = document.querySelectorAll(".employeeCard")
+// Convert NodeList into an array
+const employeeCardsArray = Array.from(employeeCardsNodeList);
+
+// Use array method to update each card's style
+
+employeeCardsArray.forEach(card => {
+    const p = card.querySelector("p");
+    if (p) {
+        p.textContent += "-Updated"
+    }
+});
