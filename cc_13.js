@@ -11,7 +11,7 @@ function addEmployeeCard(name, position) {
     const employeeCard = document.createElement("div");
    
     employeeCard.setAttribute("class", "employeeCard");
-    employeeCard.setAttribute("id", "employeeCard")
+    
     
 
  // Adds employee name to the card
@@ -27,9 +27,8 @@ function addEmployeeCard(name, position) {
     removeButton.textContent = "Remove";
 
 
-
-    // Task 4 Change
-    removeButton.addEventListener('click', function(event) {
+     // Task 4 Change
+     removeButton.addEventListener('click', function(event) {
         console.log('Removed button was clicked')
         event.stopPropagation();
         dashboard.removeChild(employeeCard);
@@ -40,20 +39,49 @@ function addEmployeeCard(name, position) {
         console.log('Clicked Employee Card', empName.textContent)
     });
 
-    
 
+    // Task 5 - Incline Editing for Employee Cards
+
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    employeeCard.appendChild(editButton);
+// Create edit function
+    editButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+// Creating name input
+        const nameInput = document.createElement("input");
+        nameInput.value = empName. textContent;
+    // Creating positon input
+        const positionInput = document.createElement("input");
+        positionInput.value = employeeName.textContent;
+    // Creating save button
+        const saveButton = document.createElement("button");
+        saveButton.textContent = "Save";
+    
+        employeeCard.replaceChild(nameInput, empName);
+        employeeCard.replaceChild(positionInput, empPosition);
+    
+        employeeCard.appendChild(saveButton);
+// Listen for a click so editing becomes available
+        saveButton.addEventListener("click", (e) => {
+            e.stopPropagation();
+    
+            empName.textContent= nameInput.value;
+            empPosition.textContent = positionInput.value;
+    
+            employeeCard.replaceChild(empName, nameInput);
+            employeeCard.replaceChild(empPosition, positionInput);
+            employeeCard.removeChild(saveButton);
+        });
+    });
+// Add each of these to the employee cards
     employeeCard.appendChild(empName);
     employeeCard.appendChild(empPosition);
     employeeCard.appendChild(removeButton);
+    dashboard.appendChild(editButton);
+
     dashboard.appendChild(employeeCard);
 };
-
-dashboard.addEventListener('click', (event) => {
-    if (event.target !== event.currentTarget) {
-    console.log('Clicked on Employee');
-    }
-});
-
 
 
 // Test Cases for Task 2
@@ -61,7 +89,6 @@ dashboard.addEventListener('click', (event) => {
 addEmployeeCard("Minnie Mouse", "Bow seller");
 addEmployeeCard("Dr. DooLittle", "Doctor");
 addEmployeeCard("Shrek", "Real Estate Agent");
-
 
 
 // Task 3 - Bulk Update on Employee Cards
@@ -80,5 +107,13 @@ employeeCardsArray.forEach(card => {
         p.textContent += "-Updated"
     }
 });
+
+// Listening for a click on the dashboard and logs it
+dashboard.addEventListener('click', (event) => {
+    if (event.target !== event.currentTarget) {
+    console.log('Clicked on Employee');
+    }
+});
+
 
 
