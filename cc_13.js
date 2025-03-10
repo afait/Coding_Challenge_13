@@ -26,15 +26,35 @@ function addEmployeeCard(name, position) {
     const removeButton = document.createElement("button");
     removeButton.textContent = "Remove";
 
-    removeButton.addEventListener("click", function() {
-        employeeCard.remove();
+
+
+    // Task 4 Change
+    removeButton.addEventListener('click', function(event) {
+        console.log('Removed button was clicked')
+        event.stopPropagation();
+        dashboard.removeChild(employeeCard);
     });
+
+// Task 4 - Employee Card Removal with Event Bubbling
+    employeeCard.addEventListener('click', () => {
+        console.log('Clicked Employee Card', empName.textContent)
+    });
+
+    
 
     employeeCard.appendChild(empName);
     employeeCard.appendChild(empPosition);
     employeeCard.appendChild(removeButton);
     dashboard.appendChild(employeeCard);
 };
+
+dashboard.addEventListener('click', (event) => {
+    if (event.target !== event.currentTarget) {
+    console.log('Clicked on Employee');
+    }
+});
+
+
 
 // Test Cases for Task 2
 
@@ -60,3 +80,5 @@ employeeCardsArray.forEach(card => {
         p.textContent += "-Updated"
     }
 });
+
+
